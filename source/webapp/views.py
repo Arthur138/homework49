@@ -24,9 +24,9 @@ class DoingView(TemplateView):
 
 class DoingCreate(TemplateView):
     template_name = "doings_create.html"
-    def get(self, *args, **kwargs):
+    def get(self,request, *args, **kwargs):
         form = DoingForm()
-        return self.render_to_response({'form': form})
+        return render(request, "doings_create.html", {'form': form})
     def post(self,request, *args, **kwargs):
         form = DoingForm(data=request.POST)
         if form.is_valid():
@@ -37,5 +37,29 @@ class DoingCreate(TemplateView):
                 type=form.cleaned_data['type']
             )
             return redirect('doing_view', pk=new_doing.pk)
+        else:
+            return render(request, "doings_create.html", {'form': form})
+
+class DoingUpdateView(TemplateView):
+    template_name = "update.html"
+    def get(self,request, *args, **kwargs):
+        doing = get_object_or_404(Doings, pk=kwargs['pk'])
+        form = DoingForm(initial={
+            'summary':doing.summary,
+            'description':doing.description,
+            'status':doing.status,
+            'type':doing.type
+        })
+        return render(request, "update.html", {'form': form})
+    def post(self, request, *args, **kwargs):
+        doing = get_object_or_404(Doings, pk=kwargs['pk'])
+        form = DoingForm(data=request.POST)
+        if form.is_valid():
+            doing.summary = form.cleaned_data.get('summary')
+            doing.description = form.cleaned_data.get('description')
+            doing.status = form.cleaned_data.get('status')
+            doing.type = form.cleaned_data.get('type')
+            doing.save()
+            return redirect('doing_view', pk=doing.pk)
         else:
             return render(request, "doings_create.html", {'form': form})
