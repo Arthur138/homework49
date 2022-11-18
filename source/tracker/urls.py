@@ -1,4 +1,4 @@
-"""todolist URL Configuration
+"""tracker URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import IndexView , DoingView , DoingCreate , DoingUpdateView
+from webapp.views import IndexView , DoingView , DoingCreate , DoingUpdateView , DoingDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +23,6 @@ urlpatterns = [
     path('doings/<int:pk>/', DoingView.as_view(), name='doing_view'),
     path('doings/add/', DoingCreate.as_view(), name='doing_create'),
     path('doing/<int:pk>/update/', DoingUpdateView.as_view(), name='doing_update'),
+    path('doing/<int:pk>/delete/', DoingDeleteView.as_view(), name='doing_delete')
+
 ]

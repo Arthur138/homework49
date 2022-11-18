@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Delete Task{% endblock %}
+{% block title %}Delete Issue{% endblock %}
 {% block nav %}
     <li><a class="nav-link" href="{% url 'doing_view' doing.pk %}">View</a></li>
 {% endblock %}
 {% block content %}
-    <h1>Are you sure want to delete task "{{ doing.title }}"?</h1>
+    <h1 class="text-center mt-5">Are you sure want to delete Issue "{{ doing.summary }}"?</h1>
     <form method="POST" action="{% url "doing_delete" doing.pk %}" class="text-center">
         {% csrf_token %}
-        <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url "doing_view" doing.pk %}">Cancel</a></p>
+        <p class="mt-5"><input type="submit" value="Confirm" class="btn btn-dark"></p>
+        <p><a class="btn btn-secondary" href="{% url "doing_view" doing.pk %}">Cancel</a></p>
     </form>
 
 {% endblock %}

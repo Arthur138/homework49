@@ -7,12 +7,12 @@
     </li>
 {%  endblock %}
 {% block content %}
-<h2>To-Do list</h2><hr>
+<h2>Issue Tracker</h2><hr>
 {% for doing in doings %}
     <h4>{{ doing.summary }}</h4>
     <p>{{ doing.description }}</p>
     <p>{{ doing.status }}</p>
-    <p><a href="{% url 'doing_view' doing.pk %}">More...</a></p>
+    <p><a class="btn btn-dark" href="{% url 'doing_view' doing.pk %}">More...</a></p>
     <hr>
 {% endfor %}<br/>
 

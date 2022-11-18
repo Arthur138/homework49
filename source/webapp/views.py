@@ -63,3 +63,12 @@ class DoingUpdateView(TemplateView):
             return redirect('doing_view', pk=doing.pk)
         else:
             return render(request, "doings_create.html", {'form': form})
+
+class DoingDeleteView(TemplateView):
+    def get(self,request, *args, **kwargs):
+        doing = get_object_or_404(Doings, pk=kwargs['pk'])
+        return render(request, 'delete.html', context={'doing': doing})
+    def post(self, request, *args, **kwargs):
+        doing = get_object_or_404(Doings, pk=kwargs['pk'])
+        doing.delete()
+        return redirect('index')
