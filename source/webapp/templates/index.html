@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{#{%  block nav %}#}
+{#    <li class="nav-item">#}
+{#          <a class="nav-link" href="{% url 'doing_create' %}">Add+</a>#}
+{#    </li>#}
+{#{%  endblock %}#}
+{% block content %}
+<h2>To-Do list</h2><hr>
+{% for doing in doings %}
+    <h4>{{ doing.summary }}</h4>
+    <p>{{ doing.description }}</p>
+    <p><a href="{% url 'doing_view' doing.pk %}">More...</a></p>
+    <hr>
+{% endfor %}<br/>
+
+{%  endblock %}

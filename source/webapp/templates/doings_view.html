@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{#{%  block nav %}#}
+{#    <li class="nav-item">#}
+{#          <a class="nav-link" href="{% url 'doing_create' %}">Add+</a>#}
+{#    </li>#}
+{#    <li class="nav-item">#}
+{#          <a class="nav-link" href="{% url 'doing_update' doing.pk %}">Edit</a>#}
+{#    </li>#}
+{#    <li class="nav-item">#}
+{#          <a class="nav-link" href="{% url 'doing_delete' doing.pk %}">Delete</a>#}
+{#    </li>#}
+{#{%  endblock %}#}
+{% block content %}
+<body>
+    <h2>{{ doing.summary }}</h2>
+    <p>{{ doing.description }}</p>
+    <a href="{% url 'index' %}">Main</a>
+</body>
+
+{% endblock %}
