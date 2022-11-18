@@ -1,0 +1,134 @@
+[
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "statusname": "New"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "statusname": "In Progress"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "statusname": "Done"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "typename": "Task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "typename": "Bug"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "typename": "Enhancement"
+  }
+},
+{
+  "model": "webapp.doings",
+  "pk": 1,
+  "fields": {
+    "summary": "Make a cake",
+    "description": "Make a cake until tomorrow",
+    "status": 1,
+    "type": 1,
+    "create": "2022-11-18T08:58:30.905Z",
+    "update": "2022-11-18T08:58:30.905Z"
+  }
+},
+{
+  "model": "webapp.doings",
+  "pk": 2,
+  "fields": {
+    "summary": "Clean the car",
+    "description": "Clean the car before friday",
+    "status": 3,
+    "type": 1,
+    "create": "2022-11-18T08:59:10.689Z",
+    "update": "2022-11-18T08:59:10.689Z"
+  }
+},
+{
+  "model": "webapp.doings",
+  "pk": 3,
+  "fields": {
+    "summary": "Rewrite homework",
+    "description": "Rewrite math homework",
+    "status": 2,
+    "type": 2,
+    "create": "2022-11-18T08:59:26.440Z",
+    "update": "2022-11-18T08:59:26.440Z"
+  }
+},
+{
+  "model": "webapp.doings",
+  "pk": 4,
+  "fields": {
+    "summary": "Fix the computer",
+    "description": "Buy new SSD",
+    "status": 3,
+    "type": 2,
+    "create": "2022-11-18T08:59:44.174Z",
+    "update": "2022-11-18T08:59:44.174Z"
+  }
+},
+{
+  "model": "webapp.doings",
+  "pk": 5,
+  "fields": {
+    "summary": "Upgrade pc",
+    "description": "Buy new RAM",
+    "status": 1,
+    "type": 2,
+    "create": "2022-11-18T08:59:59.890Z",
+    "update": "2022-11-18T08:59:59.890Z"
+  }
+},
+{
+  "model": "webapp.doings",
+  "pk": 6,
+  "fields": {
+    "summary": "Paint the table",
+    "description": "Paint the table red",
+    "status": 3,
+    "type": 3,
+    "create": "2022-11-18T09:02:17.196Z",
+    "update": "2022-11-18T09:02:17.196Z"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$BWWLtecabvLQvQyvr5TmE2$WB3NpdnAqoVxVIlgOiebQSuXlX4+3VGTVgWDWX4HvIw=",
+    "last_login": "2022-11-18T08:43:14.307Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-11-18T08:42:54.693Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

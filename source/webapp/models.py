@@ -5,13 +5,13 @@ class Status(models.Model):
     statusname = models.CharField(max_length=150, null=False, blank=False, verbose_name="Статус")
 
     def __str__(self):
-        return f'{self.pk}. {self.statusname}'
+        return f'{self.statusname}'
 
 class Type(models.Model):
     typename = models.CharField(max_length=150, null=False, blank=False, verbose_name="Тип")
 
     def __str__(self):
-        return f'{self.pk}. {self.typename}'
+        return f'{self.typename}'
 
 class Doings(models.Model):
     summary = models.CharField(max_length=200, null= False, blank= False, verbose_name="Краткое описание")
