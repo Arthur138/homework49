@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from webapp.models import Doings , Status , Type
 # from django.http import HttpResponseRedirect , HttpResponseNotFound
-# from webapp.forms import DoingForm
+from webapp.forms import DoingForm
 from django.views.generic import View , TemplateView
 # Create your views here.
 
@@ -23,7 +23,19 @@ class DoingView(TemplateView):
        return context
 
 class DoingCreate(TemplateView):
-    template_name = 'doings_create.html'
-    def get(self, request ,*args, **kwargs):
-
-        return render(request, 'doings_create.html')
+    template_name = "doings_create.html"
+    def get(self, *args, **kwargs):
+        form = DoingForm()
+        return self.render_to_response({'form': form})
+    def post(self,request, *args, **kwargs):
+        form = DoingForm(data=request.POST)
+        if form.is_valid():
+            new_doing = Doings.objects.create(
+                summary=form.cleaned_data['summary'],
+                description=form.cleaned_data['description'],
+                status=form.cleaned_data['status'],
+                type=form.cleaned_data['type']
+            )
+            return redirect('doing_view', pk=new_doing.pk)
+        else:
+            return render(request, "doings_create.html", {'form': form})
