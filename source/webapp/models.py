@@ -17,7 +17,7 @@ class Doings(models.Model):
     summary = models.CharField(max_length=200, null= False, blank= False, verbose_name="Краткое описание")
     description = models.TextField(max_length=2000, null= True, blank=True, verbose_name="Описание")
     status = models.ForeignKey('webapp.Status', related_name='status', on_delete=models.PROTECT, verbose_name="Статус")
-    type = models.ForeignKey('webapp.Type', related_name='type', on_delete=models.PROTECT, verbose_name="Тип")
+    type = models.ManyToManyField('webapp.Type', related_name='type', blank=True)
     create = models.DateTimeField(auto_now_add=True, verbose_name='Создание')
     update = models.DateTimeField(auto_now=True, verbose_name='Обновление')
 

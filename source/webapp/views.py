@@ -30,12 +30,9 @@ class DoingCreate(TemplateView):
     def post(self,request, *args, **kwargs):
         form = DoingForm(data=request.POST)
         if form.is_valid():
-            new_doing = Doings.objects.create(
-                summary=form.cleaned_data['summary'],
-                description=form.cleaned_data['description'],
-                status=form.cleaned_data['status'],
-                type=form.cleaned_data['type']
-            )
+            type = form.cleaned_data.pop('type')
+            new_doing = Doings.objects.create(**form.cleaned_data)
+            new_doing.type.set(type)
             return redirect('doing_view', pk=new_doing.pk)
         else:
             return render(request, "doings_create.html", {'form': form})
@@ -48,7 +45,7 @@ class DoingUpdateView(TemplateView):
             'summary':doing.summary,
             'description':doing.description,
             'status':doing.status,
-            'type':doing.type
+            'type':doing.type.all()
         })
         return render(request, "update.html", {'form': form})
     def post(self, request, *args, **kwargs):
@@ -58,8 +55,8 @@ class DoingUpdateView(TemplateView):
             doing.summary = form.cleaned_data.get('summary')
             doing.description = form.cleaned_data.get('description')
             doing.status = form.cleaned_data.get('status')
-            doing.type = form.cleaned_data.get('type')
             doing.save()
+            doing.type.set(form.cleaned_data['type'])
             return redirect('doing_view', pk=doing.pk)
         else:
             return render(request, "doings_create.html", {'form': form})

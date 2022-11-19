@@ -17,7 +17,7 @@
     <h2>{{ doing.summary }}</h2>
     <p><b>Descriprion:</b> {{ doing.description }}</p>
     <p><b>Status:</b> {{ doing.status }}</p>
-    <p><b>Type:</b> {{ doing.type }}</p>
+    <p><b>Types:</b> {% for type in doing.type.all %}{{ type }}{% if not forloop.last %} , {% endif %}{% endfor %}</p>
     <p><b>Created:</b> {{ doing.create }}</p>
     <p><b>Updated:</b> {{ doing.update }}</p>
     <a class="btn btn-dark" href="{% url 'index' %}">Main</a>
