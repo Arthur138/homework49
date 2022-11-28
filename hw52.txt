@@ -1,0 +1,15 @@
+from webapp.models import Doings 
+
+1.
+from datetime import datetime 
+from datetime import timedelta
+Doings.objects.filter(update__gte = datetime.now() - timedelta(days=30), status__statusname ="Done") 
+
+2.
+from django.db.models import Q
+Doings.objects.filter(Q (status__statusname = 'Done') | Q (status__statusname = 'New') & Q (type__typename = 'Bug') | Q (type__typename = 'Task')).distinct()  
+
+3.
+from django.db.models import Q
+Doings.objects.filter(Q (summary__icontains='bug') | Q (type__typename = 'Bug')).exclude(status__statusname = 'Done').distinct() 
+
