@@ -7,7 +7,9 @@
     </li>
 {%  endblock %}
 {% block content %}
+
 <h2>Issue Tracker</h2><hr>
+    {% include 'partial/simple_search.html' %}
 {% for doing in doings %}
     <h4>{{ doing.summary }}</h4>
     <p>{{ doing.description }}</p>
@@ -15,5 +17,8 @@
     <p><a class="btn btn-dark" href="{% url 'doing_view' doing.pk %}">More...</a></p>
     <hr>
 {% endfor %}<br/>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
 
 {%  endblock %}

@@ -19,3 +19,6 @@ class DoingForm(forms.ModelForm):
         if cleaned_data['summary'] == cleaned_data['description']:
             raise ValidationError('Описание не должно совпадать с названием')
         return cleaned_data
+
+class SimpleSearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False, label="Найти")
