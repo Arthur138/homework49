@@ -2,9 +2,12 @@ from django import forms
 from webapp.models import Status, Type , Doings
 from django.forms import widgets , ValidationError
 
+from webapp.models import Projects
+
+
 class DoingForm(forms.ModelForm):
     class Meta:
-        model = Doings 
+        model = Doings
         fields = ['summary', 'description', 'status', 'type']
         widgets = {'description':widgets.Textarea, 'type':widgets.CheckboxSelectMultiple}
 
@@ -20,5 +23,13 @@ class DoingForm(forms.ModelForm):
             raise ValidationError('Описание не должно совпадать с названием')
         return cleaned_data
 
+
+
 class SimpleSearchForm(forms.Form):
     search = forms.CharField(max_length=100, required=False, label="Найти")
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        fields = ['name', 'description', 'start_date', 'end_date']
+        widgets = {'start_date':widgets.SelectDateWidget, 'end_date':widgets.SelectDateWidget}

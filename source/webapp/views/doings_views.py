@@ -1,13 +1,14 @@
 from django.shortcuts import render , redirect , get_object_or_404 
-from webapp.models import Doings , Status , Type
+from webapp.models import Doings , Status , Type , Projects
 from webapp.forms import DoingForm , SimpleSearchForm
 from django.urls import reverse
-from django.views.generic import  TemplateView ,FormView , ListView
+from django.views.generic import TemplateView, FormView, ListView, CreateView, DetailView
 from django.db.models import Q
 from django.utils.http import urlencode
 
+
 class IndexView(ListView):
-    template_name = 'index.html'
+    template_name = 'doings/index.html'
     context_object_name = 'doings'
     model = Doings
     ordering = ['-create']
@@ -36,27 +37,29 @@ class IndexView(ListView):
             return self.form.cleaned_data['search']
         return None
 
-class DoingView(TemplateView):
-   template_name = 'doings_view.html'
+class DoingView(DetailView):
+    template_name = 'doings/doings_view.html'
+    model = Doings
 
-   def get_context_data(self, **kwargs):
-       context = super().get_context_data(**kwargs)
-       context['doing'] = get_object_or_404(Doings, pk=kwargs['pk'])
-       return context
-
-class DoingCreate(FormView):
-    template_name = "doings_create.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        doings = self.object
+        context['doing'] = doings
+        return context
+class DoingCreateView(CreateView):
+    template_name = 'doings/doings_create.html'
+    model = Doings
     form_class = DoingForm
 
     def form_valid(self, form):
-       self.doing = form.save()
-       return super().form_valid(form)
+        task = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
+        form.instance.task = task
+        return super().form_valid(form)
 
     def get_success_url(self):
-       return reverse('doing_view', kwargs={'pk': self.doing.pk})
-
+        return reverse('doing_view', kwargs={'pk': self.object.pk})
 class DoingUpdateView(FormView):
-    template_name = 'update.html'
+    template_name = 'doings/update.html'
     form_class = DoingForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -93,7 +96,7 @@ class DoingUpdateView(FormView):
 class DoingDeleteView(TemplateView):
     def get(self,request, *args, **kwargs):
         doing = get_object_or_404(Doings, pk=kwargs['pk'])
-        return render(request, 'delete.html', context={'doing': doing})
+        return render(request, 'doings/delete.html', context={'doing': doing})
     def post(self, request, *args, **kwargs):
         doing = get_object_or_404(Doings, pk=kwargs['pk'])
         doing.delete()

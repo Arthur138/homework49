@@ -20,6 +20,15 @@ class Doings(models.Model):
     type = models.ManyToManyField('webapp.Type', related_name='type', blank=True)
     create = models.DateTimeField(auto_now_add=True, verbose_name='Создание')
     update = models.DateTimeField(auto_now=True, verbose_name='Обновление')
-
+    task = models.ForeignKey('webapp.Projects', related_name="doings",on_delete=models.CASCADE, verbose_name="Задача")
     def __str__(self):
         return f'{self.pk}. {self.summary}'
+
+class Projects(models.Model):
+    start_date =models.DateField(null=False,blank=False, verbose_name="Начало")
+    end_date =models.DateField(null= True, blank=True, verbose_name="Конец")
+    name = models.CharField(max_length=30, null=False,blank=False, verbose_name="Название")
+    description = models.TextField(max_length=400,null=False,blank=False, verbose_name="Описание")
+
+    def __str__(self):
+        return f'{self.name}'

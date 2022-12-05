@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import IndexView , DoingView , DoingCreate , DoingUpdateView , DoingDeleteView
+from webapp.views import IndexView , DoingView, DoingUpdateView , DoingDeleteView , ProjectView, ProjectDetailView , DoingCreateView , ProjectCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('doings/<int:pk>/', DoingView.as_view(), name='doing_view'),
-    path('doings/add/', DoingCreate.as_view(), name='doing_create'),
     path('doing/<int:pk>/update/', DoingUpdateView.as_view(), name='doing_update'),
-    path('doing/<int:pk>/delete/', DoingDeleteView.as_view(), name='doing_delete')
+    path('doing/<int:pk>/delete/', DoingDeleteView.as_view(), name='doing_delete'),
+    path('projects/', ProjectView.as_view(), name='projects_list'),
+    path('project/<int:pk>/', ProjectDetailView.as_view(), name= 'project_view'),
+    path('project/<int:pk>/doing/add', DoingCreateView.as_view(), name= 'project_doings_add'),
+    path('project/create', ProjectCreateView.as_view(), name='project_create')
 
 ]

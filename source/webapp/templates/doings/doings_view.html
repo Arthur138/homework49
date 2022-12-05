@@ -3,9 +3,6 @@
 
 {%  block nav %}
     <li class="nav-item">
-          <a class="nav-link" href="{% url 'doing_create' %}">Add+</a>
-    </li>
-    <li class="nav-item">
           <a class="nav-link" href="{% url 'doing_update' doing.pk %}">Edit</a>
     </li>
     <li class="nav-item">
@@ -20,7 +17,7 @@
     <p><b>Types:</b> {% for type in doing.type.all %}{{ type }}{% if not forloop.last %} , {% endif %}{% endfor %}</p>
     <p><b>Created:</b> {{ doing.create }}</p>
     <p><b>Updated:</b> {{ doing.update }}</p>
-    <a class="btn btn-dark" href="{% url 'index' %}">Main</a>
+{#    <p><a class="btn btn-dark" href="{% url 'project_view' projects.pk %}">Back</a></p>#}
 </body>
 
 {% endblock %}

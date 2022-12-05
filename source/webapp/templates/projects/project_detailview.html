@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{%  block nav %}
+    <li class="nav-item">
+          <a class="nav-link" href="{% url 'project_doings_add' projects.pk %}">Task Add+</a>
+    </li>
+{%  endblock %}
+{% block content %}
+
+<h3>Project: {{ projects.name }}</h3>
+    <h5>Description: {{ projects.description }}</h5>
+    <p>Start: {{ projects.start_date }}</p>
+    <p>End: {{ projects.end_date }}</p><hr>
+{% for doing in doings %}
+    <h4>{{ doing.summary }}</h4>
+    <p>{{ doing.description }}</p>
+    <p>{{ doing.status }}</p>
+    <p><a class="btn btn-dark" href="{% url 'doing_view' doing.pk %}">More...</a></p>
+    <hr>
+
+{% endfor %}<br/>
+
+
+{%  endblock %}
