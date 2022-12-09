@@ -3,6 +3,12 @@
     <li class="nav-item">
           <a class="nav-link" href="{% url 'project_doings_add' projects.pk %}">Task Add+</a>
     </li>
+    <li class="nav-item">
+          <a class="nav-link" href="{% url 'project_update' projects.pk %}">Update Project</a>
+    </li>
+    <li class="nav-item">
+          <a class="nav-link" href="{% url 'project_delete' projects.pk %}">Delete Project</a>
+    </li>
 {%  endblock %}
 {% block content %}
 

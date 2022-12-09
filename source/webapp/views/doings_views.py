@@ -1,8 +1,8 @@
 from django.shortcuts import render , redirect , get_object_or_404 
 from webapp.models import Doings , Status , Type , Projects
 from webapp.forms import DoingForm , SimpleSearchForm
-from django.urls import reverse
-from django.views.generic import TemplateView, FormView, ListView, CreateView, DetailView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import TemplateView, FormView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.http import urlencode
 
@@ -58,47 +58,18 @@ class DoingCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('doing_view', kwargs={'pk': self.object.pk})
-class DoingUpdateView(FormView):
+
+class DoingUpdateView(UpdateView):
+    model = Doings
     template_name = 'doings/update.html'
     form_class = DoingForm
-
-    def dispatch(self, request, *args, **kwargs):
-       self.doing = self.get_object()
-       return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-       context = super().get_context_data(**kwargs)
-       context['doing'] = self.doing
-       return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.doing
-        return kwargs
-
-    def form_valid(self, form):
-       type = form.cleaned_data.pop('type')
-       for key, value in form.cleaned_data.items():
-           if value is not None:
-               setattr(self.doing, key, value)
-       self.doing.save()
-       self.doing.type.set(type)
-       return super().form_valid(form)
+    context_object_name = 'doing'
 
     def get_success_url(self):
-       return reverse('doing_view', kwargs={'pk': self.doing.pk})
+        return reverse('doing_view', kwargs={'pk': self.object.pk})
 
-    def get_object(self):
-       pk = self.kwargs.get('pk')
-       return get_object_or_404(Doings, pk=pk)
-
-
-class DoingDeleteView(TemplateView):
-    def get(self,request, *args, **kwargs):
-        doing = get_object_or_404(Doings, pk=kwargs['pk'])
-        return render(request, 'doings/delete.html', context={'doing': doing})
-    def post(self, request, *args, **kwargs):
-        doing = get_object_or_404(Doings, pk=kwargs['pk'])
-        doing.delete()
-        return redirect('index')
-
+class DoingDeleteView(DeleteView):
+    template_name = 'doings/delete.html'
+    model = Doings
+    context_object_name = 'doing'
+    success_url = reverse_lazy('index')
