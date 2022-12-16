@@ -64,7 +64,7 @@ class DoingCreateView(LoginRequiredMixin , CreateView):
 
 
     def get_success_url(self):
-        return reverse('doing_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:doing_view', kwargs={'pk': self.object.pk})
 
 class DoingUpdateView(LoginRequiredMixin, UpdateView):
     model = Doings
@@ -73,11 +73,11 @@ class DoingUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = 'doing'
 
     def get_success_url(self):
-        return reverse('doing_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:doing_view', kwargs={'pk': self.object.pk})
 
 class DoingDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'doings/delete.html'
     model = Doings
     context_object_name = 'doing'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')
 
