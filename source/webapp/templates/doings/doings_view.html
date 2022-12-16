@@ -2,12 +2,14 @@
 
 
 {%  block nav %}
+    {% if request.user.is_authenticated %}
     <li class="nav-item">
-          <a class="nav-link" href="{% url 'doing_update' doing.pk %}">Edit</a>
+          <a class="nav-link" href="{% url 'webapp:doing_update' doing.pk %}">Edit</a>
     </li>
     <li class="nav-item">
-          <a class="nav-link" href="{% url 'doing_delete' doing.pk %}">Delete</a>
+          <a class="nav-link" href="{% url 'webapp:doing_delete' doing.pk %}">Delete</a>
     </li>
+    {% endif %}
 {%  endblock %}
 {% block content %}
 <body>
@@ -17,7 +19,7 @@
     <p><b>Types:</b> {% for type in doing.type.all %}{{ type }}{% if not forloop.last %} , {% endif %}{% endfor %}</p>
     <p><b>Created:</b> {{ doing.create }}</p>
     <p><b>Updated:</b> {{ doing.update }}</p>
-{#    <p><a class="btn btn-dark" href="{% url 'project_view' projects.pk %}">Back</a></p>#}
+{#    <p><a class="btn btn-dark" href="{% url 'webapp:project_view' projects.pk %}">Back</a></p>#}
 </body>
 
 {% endblock %}

@@ -2,14 +2,14 @@
 
 {% block title %}Delete Issue{% endblock %}
 {% block nav %}
-    <li><a class="nav-link" href="{% url 'doing_view' doing.pk %}">View</a></li>
+    <li><a class="nav-link" href="{% url 'webapp:doing_view' doing.pk %}">View</a></li>
 {% endblock %}
 {% block content %}
     <h1 class="text-center mt-5">Are you sure want to delete Issue "{{ doing.summary }}"?</h1>
-    <form method="POST" action="{% url "doing_delete" doing.pk %}" class="text-center">
+    <form method="POST" action="{% url "webapp:doing_delete" doing.pk %}" class="text-center">
         {% csrf_token %}
         <p class="mt-5"><input type="submit" value="Confirm" class="btn btn-dark"></p>
-        <p><a class="btn btn-secondary" href="{% url "doing_view" doing.pk %}">Cancel</a></p>
+        <p><a class="btn btn-secondary" href="{% url "webapp:doing_view" doing.pk %}">Cancel</a></p>
     </form>
 
 {% endblock %}

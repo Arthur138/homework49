@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {%  block nav %}
+    {% if request.user.is_authenticated %}
     <li class="nav-item">
-          <a class="nav-link" href="{% url 'project_doings_add' projects.pk %}">Task Add+</a>
+          <a class="nav-link" href="{% url 'webapp:project_doings_add' projects.pk %}">Task Add+</a>
     </li>
     <li class="nav-item">
-          <a class="nav-link" href="{% url 'project_update' projects.pk %}">Update Project</a>
+          <a class="nav-link" href="{% url 'webapp:project_update' projects.pk %}">Update Project</a>
     </li>
     <li class="nav-item">
-          <a class="nav-link" href="{% url 'project_delete' projects.pk %}">Delete Project</a>
+          <a class="nav-link" href="{% url 'webapp:project_delete' projects.pk %}">Delete Project</a>
     </li>
+    {% endif %}
 {%  endblock %}
 {% block content %}
 
@@ -20,7 +22,7 @@
     <h4>{{ doing.summary }}</h4>
     <p>{{ doing.description }}</p>
     <p>{{ doing.status }}</p>
-    <p><a class="btn btn-dark" href="{% url 'doing_view' doing.pk %}">More...</a></p>
+    <p><a class="btn btn-dark" href="{% url 'webapp:doing_view' doing.pk %}">More...</a></p>
     <hr>
 
 {% endfor %}<br/>

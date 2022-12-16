@@ -5,10 +5,10 @@
 {% endblock %}
 {% block content %}
     <h1 class="text-center mt-5">Are you sure want to delete project "{{ projects.name }}"?</h1>
-    <form method="POST" action="{% url "project_delete" projects.pk %}" class="text-center">
+    <form method="POST" action="{% url "webapp:project_delete" projects.pk %}" class="text-center">
         {% csrf_token %}
         <p class="mt-5"><input type="submit" value="Confirm" class="btn btn-dark"></p>
-        <p><a class="btn btn-secondary" href="{% url "project_view" projects.pk %}">Cancel</a></p>
+        <p><a class="btn btn-secondary" href="{% url "webapp:project_view" projects.pk %}">Cancel</a></p>
     </form>
 
 {% endblock %}

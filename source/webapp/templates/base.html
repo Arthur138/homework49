@@ -15,14 +15,25 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div class="container">
-        <a class="navbar-brand" href="{%  url 'index' %}">Tasks</a>
-        <a class="navbar-brand" href="{%  url 'projects_list' %}">Projects</a>
+        <a class="navbar-brand" href="{%  url 'webapp:index' %}">Tasks</a>
+        <a class="navbar-brand" href="{%  url 'webapp:projects_list' %}">Projects</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
             {% block nav %}{%  endblock %}
+
+          {% if request.user.is_authenticated %}
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+          {% endif %}
           </ul>
     </nav>
     <div class="container">
