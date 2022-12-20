@@ -1,6 +1,6 @@
 from django.urls import path
 from webapp.views import IndexView , DoingView, DoingUpdateView , DoingDeleteView , ProjectView, ProjectDetailView , DoingCreateView , ProjectCreateView , ProjectUpdateView , ProjectDeleteView
-from accounts.views import login_view , logout_view
+
 
 app_name = 'webapp'
 
