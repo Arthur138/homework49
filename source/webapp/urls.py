@@ -1,5 +1,5 @@
 from django.urls import path
-from webapp.views import IndexView , DoingView, DoingUpdateView , DoingDeleteView , ProjectView, ProjectDetailView , DoingCreateView , ProjectCreateView , ProjectUpdateView , ProjectDeleteView
+from webapp.views import IndexView , DoingView, DoingUpdateView , DoingDeleteView , ProjectView, ProjectDetailView , DoingCreateView , ProjectCreateView , ProjectUpdateView , ProjectDeleteView , AddUserInProject , DeleteUserInProject
 
 
 app_name = 'webapp'
@@ -15,5 +15,7 @@ urlpatterns = [
     path('project/create', ProjectCreateView.as_view(), name='project_create'),
     path('project/<int:pk>/update', ProjectUpdateView.as_view(), name='project_update'),
     path('project/<int:pk>/delete', ProjectDeleteView.as_view(), name='project_delete'),
+    path('project/<int:pk>/add_users' , AddUserInProject.as_view() , name='add_users'),
+    path('project/<int:pk>/delete_users' , DeleteUserInProject.as_view() , name='delete_users')
 
 ]

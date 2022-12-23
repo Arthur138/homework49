@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render , redirect , get_object_or_404
 from webapp.models import Doings , Status , Type , Projects
 from webapp.forms import DoingForm , SimpleSearchForm
@@ -50,12 +50,17 @@ class DoingView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doings = self.object
-        context['doing'] = doings
+        context['doings'] = doings
         return context
-class DoingCreateView(LoginRequiredMixin , CreateView):
+class DoingCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'doings/doings_create.html'
     model = Doings
     form_class = DoingForm
+    permission_required = 'webapp.add_doings'
+
+    def has_permission(self):
+        return super().has_permission() or Projects.users == self.request.user
+
 
     def form_valid(self, form):
         task = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
@@ -66,18 +71,26 @@ class DoingCreateView(LoginRequiredMixin , CreateView):
     def get_success_url(self):
         return reverse('webapp:doing_view', kwargs={'pk': self.object.pk})
 
-class DoingUpdateView(LoginRequiredMixin, UpdateView):
+class DoingUpdateView(PermissionRequiredMixin, UpdateView):
     model = Doings
     template_name = 'doings/update.html'
     form_class = DoingForm
     context_object_name = 'doing'
+    permission_required = 'webapp.change_doings'
+
+    def has_permission(self):
+        return super().has_permission() or Projects.users == self.request.user
 
     def get_success_url(self):
         return reverse('webapp:doing_view', kwargs={'pk': self.object.pk})
 
-class DoingDeleteView(LoginRequiredMixin, DeleteView):
+class DoingDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'doings/delete.html'
     model = Doings
     context_object_name = 'doing'
     success_url = reverse_lazy('webapp:index')
+    permission_required = 'webapp.delete_doings'
+
+    def has_permission(self):
+        return super().has_permission() or Projects.users == self.request.user
 

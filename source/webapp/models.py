@@ -1,5 +1,7 @@
-from django.db import models
+from datetime import datetime
 
+from django.db import models
+from django.contrib.auth import get_user_model
 # Create your models here.
 class Status(models.Model):
     statusname = models.CharField(max_length=150, null=False, blank=False, verbose_name="Статус")
@@ -24,11 +26,18 @@ class Doings(models.Model):
     def __str__(self):
         return f'{self.pk}. {self.summary}'
 
+
 class Projects(models.Model):
     start_date =models.DateField(null=False,blank=False, verbose_name="Начало")
     end_date =models.DateField(null= True, blank=True, verbose_name="Конец")
     name = models.CharField(max_length=30, null=False,blank=False, verbose_name="Название")
     description = models.TextField(max_length=400,null=False,blank=False, verbose_name="Описание")
+    users = models.ManyToManyField(get_user_model(), related_name='users')
 
+    class Meta:
+        permissions = [
+            ('can_add_users', "может добавлять участников"),
+            ('can_delete_users', "может удалять участников")
+        ]
     def __str__(self):
         return f'{self.name}'

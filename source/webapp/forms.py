@@ -1,7 +1,7 @@
 from django import forms
 from webapp.models import Status, Type , Doings
 from django.forms import widgets , ValidationError
-
+from django.contrib.auth import get_user_model
 from webapp.models import Projects
 
 
@@ -33,3 +33,9 @@ class ProjectForm(forms.ModelForm):
         model = Projects
         fields = ['name', 'description', 'start_date', 'end_date']
         widgets = {'start_date':widgets.SelectDateWidget, 'end_date':widgets.SelectDateWidget}
+
+class UserInProjectForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        fields = ['users']
+        widgets = {'users': widgets.CheckboxSelectMultiple}
