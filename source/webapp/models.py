@@ -1,4 +1,4 @@
-from datetime import datetime
+
 
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -32,7 +32,7 @@ class Projects(models.Model):
     end_date =models.DateField(null= True, blank=True, verbose_name="Конец")
     name = models.CharField(max_length=30, null=False,blank=False, verbose_name="Название")
     description = models.TextField(max_length=400,null=False,blank=False, verbose_name="Описание")
-    users = models.ManyToManyField(get_user_model(), related_name='users')
+    users = models.ManyToManyField(get_user_model(), related_name='projects')
 
     class Meta:
         permissions = [
@@ -41,3 +41,4 @@ class Projects(models.Model):
         ]
     def __str__(self):
         return f'{self.name}'
+

@@ -25,7 +25,9 @@
             {% block nav %}{%  endblock %}
 
           {% if request.user.is_authenticated %}
-
+                 <li class="nav-item">
+                <a class="nav-link" href="{%   url 'accounts:user_detail' request.user.pk %}">Hi, {{ request.user.username }}</a>
+                </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a>
                 </li>
@@ -34,6 +36,11 @@
                 <a class="nav-link" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
                 </li>
               <li class="menu-right"><a href="{% url 'accounts:create' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
+          {% endif %}
+          {% if perms.accounts.can_see_users %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:users_list' %}?next={{ request.get_full_path }}">Users</a>
+            </li>
           {% endif %}
           </ul>
     </nav>

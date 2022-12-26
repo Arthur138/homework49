@@ -107,7 +107,7 @@
   "model": "webapp.doings",
   "pk": 16,
   "fields": {
-    "summary": "Сlean the room",
+    "summary": "РЎlean the room",
     "description": "Clean up and take out the trash",
     "status": 3,
     "create": "2022-12-05T19:38:33.244Z",
@@ -190,9 +190,115 @@
     "description": "Test project",
     "users": [
       1,
+      20
+    ]
+  }
+},
+{
+  "model": "webapp.projects",
+  "pk": 11,
+  "fields": {
+    "start_date": "2022-01-01",
+    "end_date": "2030-12-19",
+    "name": "Project в„–4",
+    "description": "Four",
+    "users": [
+      1,
       19,
       20
     ]
+  }
+},
+{
+  "model": "webapp.projects",
+  "pk": 12,
+  "fields": {
+    "start_date": "2022-01-01",
+    "end_date": "2030-12-18",
+    "name": "Fifth project",
+    "description": "Project number 5",
+    "users": [
+      1,
+      18
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$xObGPZPA4vqKn3AsLpvTzz$37UdJZ2sJi/KLX2R1PdYcbAPiOUMDexcTfDZ06XNYRw=",
+    "last_login": "2022-12-26T17:23:06.514Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-12-04T13:31:40.747Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$G4gmZB6ALFKGxB6YdsDtpa$+3FC9bZpIeG8dtSbELLWPMOlxzGXc9AmaQu6I9xhbQ8=",
+    "last_login": "2022-12-26T17:11:00.917Z",
+    "is_superuser": false,
+    "username": "manager",
+    "first_name": "Andrew",
+    "last_name": "Karpov",
+    "email": "andrewkarpov@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-12-23T10:34:56Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 19,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$jQktqsy2QIgWpH4uzjx48p$4lKmzbRongYgZu07HGnn+O5MUu08DNxD4a6E7j6/Q6A=",
+    "last_login": "2022-12-26T17:01:34Z",
+    "is_superuser": false,
+    "username": "lead",
+    "first_name": "Michael",
+    "last_name": "Smith",
+    "email": "mksmith@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-12-23T10:37:37Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 20,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$YxC3D9rkQGSJyG3a4qdkYa$Y/s/1tGfPoNhqStGJD8i4zz8AlsSpmFzeIm3aGJGlDg=",
+    "last_login": "2022-12-26T17:11:08.954Z",
+    "is_superuser": false,
+    "username": "dev",
+    "first_name": "Arthur",
+    "last_name": "K",
+    "email": "arturkuliev2@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-12-23T10:43:19Z",
+    "groups": [
+      3
+    ],
+    "user_permissions": []
   }
 }
 ]

@@ -10,14 +10,5 @@
 {%  endblock %}
 {% block content %}
 
-<h2>Projects</h2><hr>
-{% for project in projects %}
-    <h4>{{ project.name }}</h4>
-    <p>{{ project.description }}</p>
-    <p><a class="btn btn-dark" href="{% url 'webapp:project_view' project.pk %}">More...</a></p>
-    <hr>
-{% endfor %}<br/>
-    {% if is_paginated %}
-        {% include 'partial/pagination.html' %}
-    {% endif %}
+{% include 'partial/projects_list_partial.html' %}
 {%  endblock %}

@@ -39,7 +39,7 @@
     <h5>Description: {{ projects.description }}</h5>
     <p>Start: {{ projects.start_date }}</p>
     <p>End: {{ projects.end_date }}</p>
-    <p>Users in Project: {% for users in projects.users.all %}{{ users }}{% if not forloop.last %} , {% endif %}{% endfor %}</p><hr/>
+    <p>Users in Project: {% for users in projects.users.all %}<a href="{%  url 'accounts:user_detail' users.pk %}">{{ users }}</a>{% if not forloop.last %} , {% endif %}{% endfor %}</p><hr/>
 {% for doing in doings %}
     <h4>{{ doing.summary }}</h4>
     <p>{{ doing.description }}</p>

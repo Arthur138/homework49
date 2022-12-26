@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin , PermissionRequiredMixin
+from django.contrib.auth.mixins import  PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -36,7 +36,6 @@ class ProjectCreateView(PermissionRequiredMixin , CreateView):
 
 
     def get_success_url(self):
-
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
 class ProjectUpdateView(PermissionRequiredMixin , UpdateView):
@@ -70,7 +69,8 @@ class AddUserInProject(PermissionRequiredMixin,UpdateView):
     permission_required = 'webapp.can_add_users'
 
     def has_permission(self):
-        return super().has_permission() or Projects.users == self.request.user
+        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
+        return super().has_permission() and self.request.user in project.users.all()
 
     def form_valid(self, form):
         project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
@@ -89,7 +89,8 @@ class DeleteUserInProject(PermissionRequiredMixin,CreateView):
     permission_required = 'webapp.can_delete_users'
 
     def has_permission(self):
-        return super().has_permission() or Projects.users == self.request.user
+        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
+        return super().has_permission() and self.request.user in project.users.all()
 
 
     def form_valid(self, form):

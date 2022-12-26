@@ -1,0 +1,11 @@
+
+{% for doing in doings %}
+    <h4>{{ doing.summary }}</h4>
+    <p>{{ doing.description }}</p>
+    <p>{{ doing.status }}</p>
+    <p><a class="btn btn-dark" href="{% url 'webapp:doing_view' doing.pk %}">More...</a></p>
+    <hr>
+{% endfor %}<br/>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}

@@ -14,8 +14,12 @@ class MyUserCreationForm(UserCreationForm):
         fields = ['username', 'password1', 'password2','first_name', 'last_name', 'email']
         field_classes = {'username': UsernameField}
 
+
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data['first_name'] == '' or cleaned_data['last_name'] == '':
-            raise ValidationError('Fill in one of the first or last name fields')
-        return cleaned_data
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
+        if last_name or first_name:
+            pass
+        else:
+            raise ValidationError('Fill out First name or Second name ')
