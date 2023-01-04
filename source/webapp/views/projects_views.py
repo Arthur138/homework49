@@ -1,6 +1,5 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import  PermissionRequiredMixin
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from webapp.models import Projects
@@ -31,9 +30,13 @@ class ProjectCreateView(PermissionRequiredMixin , CreateView):
     form_class = ProjectForm
     permission_required = 'webapp.add_projects'
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.users.add(self.request.user)
+        return super().form_valid(form)
+
     def has_permission(self):
         return super().has_permission()
-
 
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
@@ -61,7 +64,7 @@ class ProjectDeleteView(PermissionRequiredMixin,DeleteView):
     def has_permission(self):
         return super().has_permission()
 
-class AddUserInProject(PermissionRequiredMixin,UpdateView):
+class ChangeUserInProject(PermissionRequiredMixin,UpdateView):
     template_name = 'projects/add_users_in_project.html'
     model = Projects
     form_class = UserInProjectForm
@@ -72,32 +75,5 @@ class AddUserInProject(PermissionRequiredMixin,UpdateView):
         project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
         return super().has_permission() and self.request.user in project.users.all()
 
-    def form_valid(self, form):
-        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
-        users = form.cleaned_data.get("users")
-        for user in users:
-            project.users.add(user)
-        return redirect('webapp:project_view',pk=self.kwargs.get('pk'))
     def get_success_url(self):
-        return reverse('webapp:index')
-
-class DeleteUserInProject(PermissionRequiredMixin,CreateView):
-    template_name = 'projects/delete_users_project.html'
-    model = Projects
-    form_class = UserInProjectForm
-    context_object_name = 'project'
-    permission_required = 'webapp.can_delete_users'
-
-    def has_permission(self):
-        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
-        return super().has_permission() and self.request.user in project.users.all()
-
-
-    def form_valid(self, form):
-        project = get_object_or_404(Projects, pk=self.kwargs.get('pk'))
-        users = form.cleaned_data.get("users")
-        for user in users:
-            project.users.remove(user)
-        return redirect('webapp:project_view',pk=self.kwargs.get('pk'))
-    def get_success_url(self):
-        return reverse('webapp:index')
+        return reverse('webapp:project_view', kwargs={'pk': self.object.pk})

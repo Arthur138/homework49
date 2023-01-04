@@ -1,7 +1,7 @@
 from django import forms
 from webapp.models import Status, Type , Doings
 from django.forms import widgets , ValidationError
-from django.contrib.auth import get_user_model
+
 from webapp.models import Projects
 
 

@@ -22,12 +22,7 @@
     {% for users in projects.users.all %}
         {% if perms.webapp.can_add_users and  users == request.user %}
             <li class="nav-item">
-                  <a class="nav-link" href="{% url 'webapp:add_users' projects.pk %}">Add Users</a>
-            </li>
-        {% endif %}
-        {% if perms.webapp.can_add_users and  users == request.user %}
-            <li class="nav-item">
-                  <a class="nav-link" href="{% url 'webapp:delete_users' projects.pk %}">Delete Users</a>
+                  <a class="nav-link" href="{% url 'webapp:add_users' projects.pk %}">Change Users</a>
             </li>
         {% endif %}
     {% endfor %}
@@ -39,7 +34,7 @@
     <h5>Description: {{ projects.description }}</h5>
     <p>Start: {{ projects.start_date }}</p>
     <p>End: {{ projects.end_date }}</p>
-    <p>Users in Project: {% for users in projects.users.all %}<a href="{%  url 'accounts:user_detail' users.pk %}">{{ users }}</a>{% if not forloop.last %} , {% endif %}{% endfor %}</p><hr/>
+    <p>Users in Project: {% for users in projects.users.all %}<a style="color:black;" href="{%  url 'accounts:user_detail' users.pk %}">{{ users }}</a>{% if not forloop.last %} , {% endif %}{% endfor %}</p><hr/>
 {% for doing in doings %}
     <h4>{{ doing.summary }}</h4>
     <p>{{ doing.description }}</p>
