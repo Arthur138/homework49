@@ -1,7 +1,6 @@
-from django.contrib.auth import login, update_session_auth_hash
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm
 from django.urls import reverse
@@ -60,6 +59,7 @@ class UserChangeView(LoginRequiredMixin , UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
     def get_context_data(self, **kwargs):
         context = super(UserChangeView, self).get_context_data(**kwargs)
         if 'profile_form' not in kwargs:

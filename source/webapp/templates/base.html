@@ -33,9 +33,9 @@
                 </li>
               {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
+                <a class="nav-link" href="{% url 'accounts:login' %}?next={% if request.GET.next %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}">Login</a>
                 </li>
-              <li class="menu-right"><a href="{% url 'accounts:create' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
+              <li class="menu-right"><a href="{% url 'accounts:create' %}?next={% if request.GET.next %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}" class="nav-link">Регистрация</a></li>
           {% endif %}
           {% if perms.accounts.can_see_users %}
             <li class="nav-item">
